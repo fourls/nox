@@ -1,0 +1,15 @@
+syntax: glob
+Library
+Temp
+Builds
+obj/Debug
+*.pidb
+*.sln
+*.userprefs
+*.csprog
+*.orig
+obj/Release/Assembly-CSharp.csproj.FilesWrittenAbsolute.txt
+obj/Release/Assembly-CSharp.dll
+obj/Release/Assembly-CSharp.dll.mdb
+Assembly-CSharp.csproj
+*.orig.meta
