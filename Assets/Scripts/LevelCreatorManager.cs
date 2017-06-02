@@ -231,7 +231,9 @@ public class LevelCreatorManager : MonoBehaviour {
 			map[(int)o.position.x,(int)o.position.y] = s;
 		}
 
-		if (!hasPlayer || !hasExit) {
+		int xd = 999;
+
+		if (!hasPlayer || !hasExit || int.TryParse (par, out xd) == false) {
 			ChangeLevelCompleteText ();
 			Invoke ("ChangeBackLevelCompleteText", 0.5f);
 			return false;
