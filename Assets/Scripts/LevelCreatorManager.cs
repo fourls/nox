@@ -333,6 +333,13 @@ public class LevelCreatorManager : MonoBehaviour {
 		if (!Directory.Exists (Application.persistentDataPath + "/maps")) {
 			Directory.CreateDirectory (Application.persistentDataPath + "/maps");
 		}
+		
+		
+		if(!File.Exists(Application.persistentDataPath + "/maps/map_" + title + ".txt")) {
+			StreamWriter indexWriter = new StreamWriter (Application.persistentDataPath + "/maps/index.txt",true);
+			indexWriter.WriteLine(title);
+			indexWriter.Close ();
+		}
 
 		StreamWriter writer = new StreamWriter (Application.persistentDataPath + "/maps/map_" + title + ".txt");
 
@@ -344,10 +351,6 @@ public class LevelCreatorManager : MonoBehaviour {
 			writer.WriteLine (l);
 		}
 
-		writer.Close ();
-		
-		writer = new StreamWriter (Application.persistentDataPath + "/maps/index.txt",true);
-		writer.WriteLine(title);
 		writer.Close ();
 
 		saved = true;
