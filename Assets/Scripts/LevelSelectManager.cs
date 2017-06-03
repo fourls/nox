@@ -253,7 +253,7 @@ public class LevelSelectManager : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-	void OnLevelWasLoaded () {
+	void OnLevelFinishedLoading (Scene scene, LoadSceneMode mode) {
 		if (waitingForLevel) {
 			GameObject gm = GameObject.FindGameObjectWithTag ("GameManager");
 			gm.GetComponent<GameManager> ().level = waitingLevel;
@@ -264,5 +264,17 @@ public class LevelSelectManager : MonoBehaviour {
 
 	void ExitGame() {
 		Application.Quit();
+	}
+
+	void OnEnable()
+	{
+	//Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
+		SceneManager.sceneLoaded += OnLevelFinishedLoading;
+	}
+
+	void OnDisable()
+	{
+	//Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
+		SceneManager.sceneLoaded -= OnLevelFinishedLoading;
 	}
 }
