@@ -57,7 +57,7 @@ public class LevelSelectManager : MonoBehaviour {
 		}
 
 		// custom level retrieval
-		/*
+		
 		for (int i = 0; i < LevelDetails.Custom.RetrieveAllLevels().Count; i++) {
 			LevelInformation li = LevelDetails.Custom.RetrieveLevelInformation (i);
 			string levelname = li.name;
@@ -87,13 +87,13 @@ public class LevelSelectManager : MonoBehaviour {
 
 			lcui.graphics["EditButton"].GetComponent<Button>().onClick.AddListener (() => EditLevel(li));
 			lcui.graphics["DeleteButton"].GetComponent<Button>().onClick.AddListener (() => DeleteLevel(li));
-		}*/
+		}
 
 		uiManager.graphics ["OptionsButton"].GetComponent<Button> ().onClick.AddListener (EnableOptions);
 		uiManager.graphics ["QuitButton"].GetComponent<Button> ().onClick.AddListener (ExitGame);
-		//uiManager.graphics ["GuideButton"].GetComponent<Button> ().onClick.AddListener (OpenGuide);
+		uiManager.graphics ["GuideButton"].GetComponent<Button> ().onClick.AddListener (OpenGuide);
 		uiManager.graphics ["CreditsButton"].GetComponent<Button> ().onClick.AddListener (EnableCredits);
-		//uiManager.graphics ["CreatorButton"].GetComponent<Button> ().onClick.AddListener (EnableLevelCardsPanel);
+		uiManager.graphics ["CreatorButton"].GetComponent<Button> ().onClick.AddListener (EnableLevelCardsPanel);
 
 
 		UIManager opui = uiManager.graphics["OptionsPanel"].GetComponent<UIManager>();
@@ -110,10 +110,10 @@ public class LevelSelectManager : MonoBehaviour {
 
 		crui.graphics ["BackButton"].GetComponent<Button> ().onClick.AddListener (DisableCredits);
 
-		//UIManager ulcui = uiManager.graphics ["UserMadeLevelsPanel"].GetComponent<UIManager> ();
+		UIManager ulcui = uiManager.graphics ["UserMadeLevelsPanel"].GetComponent<UIManager> ();
 
-		//ulcui.graphics ["NewLevelButton"].GetComponent<Button> ().onClick.AddListener (OpenLevelCreator);
-		//ulcui.graphics ["BackButton"].GetComponent<Button> ().onClick.AddListener (DisableLevelCardsPanel);
+		ulcui.graphics ["NewLevelButton"].GetComponent<Button> ().onClick.AddListener (OpenLevelCreator);
+		ulcui.graphics ["BackButton"].GetComponent<Button> ().onClick.AddListener (DisableLevelCardsPanel);
 
 
 		if (showingCustomLevelSelect)
