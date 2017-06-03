@@ -332,7 +332,7 @@ public class LevelCreatorManager : MonoBehaviour {
 
 		int xd = 999;
 
-		if (!hasPlayer || !hasExit || int.TryParse (par, out xd) == false) {
+		if (!hasPlayer || !hasExit || title == "" || int.TryParse (par, out xd) == false) {
 			ChangeLevelCompleteText ();
 			Invoke ("ChangeBackLevelCompleteText", 0.5f);
 			return false;
