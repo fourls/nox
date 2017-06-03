@@ -143,7 +143,7 @@ public class LevelCreatorManager : MonoBehaviour {
 
 				foreach (Collider2D coll in colliders) {
 					if (coll.CompareTag ("LevelCreatorObject")) {
-						if (Input.GetKey (KeyCode.LeftShift)) {
+						/*if (Input.GetKey (KeyCode.LeftShift)) {
 							LevelCreatorObject lco = coll.GetComponent<LevelCreatorObject> ();
 							selected = lco;
 							lco.GetComponent<LevelCreatorObject> ().Selected ();
@@ -169,7 +169,7 @@ public class LevelCreatorManager : MonoBehaviour {
 							ui.graphics["dirButton"].GetComponent<LevelCreatorButton> ().ChangeValueTo (d);
 
 							UpdateToolBar ();
-						}
+						}*/
 						skip = true;
 					}
 				}
