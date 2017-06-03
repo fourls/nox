@@ -12,6 +12,8 @@ public class LevelCreatorManager : MonoBehaviour {
 
 	public Transform boardHolder;
 	public GameObject objectPrefab;
+	public GameObject toolbarButtonPrefab;
+	public GameObject selectPrefab;
 	public LayerMask blockingLayer;
 
 	public Sprite[] objectSprites;
@@ -32,6 +34,8 @@ public class LevelCreatorManager : MonoBehaviour {
 
 	private LevelCreatorObject selected;
 
+	private List<GameObject> toolbarOptions;
+	private GameObject toolbarSelect = null;
 
 	private string lastTitleText = "";
 	private string lastParText = "";
@@ -43,7 +47,30 @@ public class LevelCreatorManager : MonoBehaviour {
 			Destroy (gameObject);
 
 		lastClicked = Time.time;
-		UpdateToolBar ();
+
+		toolbarOptions = new List<GameObject>();
+		toolbarOptions.Add(null);
+		toolbarSelect = (GameObject)Instantiate(selectPrefab);
+
+		int i = 0;
+		foreach(Sprite sp in objectSprites) {
+			if(i > 0) {
+				GameObject icon = (GameObject)Instantiate (toolbarButtonPrefab);
+				icon.transform.SetParent (ui.graphics["toolbar"].transform, false);
+				int temp = i;
+				icon.GetComponent<Button> ().onClick.AddListener (() => UpdateTool(temp,icon));
+				icon.GetComponent<Image>().sprite = sp;
+				toolbarOptions.Add(icon);
+
+				if(i == 1) {
+					toolbarSelect.transform.SetParent(icon.transform, false);
+				}
+			}
+			i++;
+		}
+
+
+		UpdateToolWindow ();
 
 		if (editing != null) {
 			LoadSavedLevel ();
@@ -125,7 +152,11 @@ public class LevelCreatorManager : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			Deselected ();
-			UpdateTool ();
+			int wantedTool = tool + 1;
+			if (wantedTool > 10) {
+				wantedTool = 1;
+			}
+			UpdateTool (wantedTool,null);
 		}
 		if (ui.graphics ["titleField"].GetComponent<InputField> ().text != lastTitleText || ui.graphics ["parField"].GetComponent<InputField> ().text != lastParText) {
 			saved = false;
@@ -168,7 +199,7 @@ public class LevelCreatorManager : MonoBehaviour {
 							}
 							ui.graphics["dirButton"].GetComponent<LevelCreatorButton> ().ChangeValueTo (d);
 
-							UpdateToolBar ();
+							UpdateToolWindow ();
 						}*/
 						skip = true;
 					}
@@ -365,23 +396,26 @@ public class LevelCreatorManager : MonoBehaviour {
 		ui.graphics ["CompleteButton"].GetComponentInChildren<Text> ().text = "this level is complete";
 	}
 
-	public void UpdateTool() {
-		tool++;
-		if (tool > 10) {
-			tool = 1;
+	public void UpdateTool(int no, GameObject icon) {
+		Debug.Log("UpdateTool called, no = " + no);
+		if (no <= 10) {
+			tool = no;
 		}
-		UpdateToolBar ();
+		if(toolbarOptions.Count > tool) {
+			toolbarSelect.transform.SetParent(toolbarOptions[tool].transform,false);
+		}
+		UpdateToolWindow ();
 	}
 
 	void Deselected () {
 		if (selected != null) {
 			selected.Deselected ();
 			selected = null;
-			UpdateToolBar ();
+			UpdateToolWindow ();
 		}
 	}
 
-	void UpdateToolBar() {
+	void UpdateToolWindow() {
 		if (selected == null) {
 			ui.graphics["toolText"].GetComponent<Text>().text = "<color=grey>placing</color> " + toolNames [tool];
 		} else {
