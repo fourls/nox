@@ -15,11 +15,11 @@ public class LevelCreatorObject : MonoBehaviour {
 
 
 	public void Initialise (Vector2 p,int t, int c, Direction d, bool a) {
+		position = p;
 		type = t;
 		connection = c;
 		dir = d;
 		anti = a;
-		position = p;
 
 		GetComponent<SpriteRenderer> ().sprite = LevelCreatorManager.instance.objectSprites [t];
 		SetDirection (dir);

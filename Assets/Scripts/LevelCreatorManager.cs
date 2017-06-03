@@ -50,8 +50,76 @@ public class LevelCreatorManager : MonoBehaviour {
 		}
 	}
 
-	void LoadSavedLevel() {
-		
+	void LoadSavedLevel () {
+		int x = 0;
+		int y = 0;
+
+		LevelInformation level = editing;
+		ui.graphics["titleField"].GetComponent<InputField>().text = level.name.ToString();
+		ui.graphics["parField"].GetComponent<InputField>().text = level.par.ToString();
+
+		foreach(string line in level.map) {
+			string[] blockIDs = line.Split ('|');
+
+			for (int e = 1; e < blockIDs.Length - 1; e++) {
+				int space = -1;
+				blockIDs [e].Trim ();
+
+				int connection = 0;
+				Direction dir = Direction.Up;
+				bool anti = false;
+
+				if (blockIDs [e].Contains ("[")) {
+					connection = 1;
+					blockIDs[e] = blockIDs [e].Replace ("[", "");
+				}
+				if (blockIDs [e].Contains ("(")) {
+					connection = 2;
+					blockIDs[e] = blockIDs [e].Replace ("(", "");
+				}
+				if (blockIDs [e].Contains ("{")) {
+					connection = 3;
+					blockIDs[e] = blockIDs [e].Replace ("{", "");
+				}
+				if (blockIDs [e].Contains ("!")) {
+					anti = true;
+					blockIDs[e] = blockIDs [e].Replace ("!", "");
+				}
+				if (blockIDs [e].Contains ("d")) {
+					dir = Direction.Down;
+					blockIDs[e] = blockIDs [e].Replace ("d", "");
+				}
+				if (blockIDs [e].Contains ("u")) {
+					dir = Direction.Up;
+					blockIDs[e] = blockIDs [e].Replace ("u", "");
+				}
+				if (blockIDs [e].Contains ("l")) {
+					dir = Direction.Left;
+					blockIDs[e] = blockIDs [e].Replace ("l", "");
+				}
+				if (blockIDs [e].Contains ("r")) {
+					dir = Direction.Right;
+					blockIDs[e] = blockIDs [e].Replace ("r", "");
+				}
+
+				if (!blockIDs [e].Contains ("-")) {
+					space = int.Parse (blockIDs [e]);
+				}
+
+				Vector2 roundedPos = new Vector2(x,y);
+				if(space > -1) {
+					GameObject go = (GameObject)Instantiate (objectPrefab, roundedPos, Quaternion.identity);
+					LevelCreatorObject lco = go.GetComponent<LevelCreatorObject> ();
+					// Vector2 p,int t, int c, Direction d, bool a
+					lco.Initialise(roundedPos, space, connection, dir, anti);
+				}
+
+				x++;
+			}
+			
+			y++;
+			x = 0;	
+		}
 	}
 
 	void Update () {
