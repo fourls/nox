@@ -188,6 +188,7 @@ public class LevelSelectManager : MonoBehaviour {
 
 	void MiddleEnableLevelCardsPanel() {
 		uiManager.graphics["UserMadeLevelsPanel"].GetComponent<UIManager>().graphics["Container"].SetActive (true);
+		uiManager.graphics["CreatorButton"].SetActive(false);
 		LevelSelectManager.showingCustomLevelSelect = true;
 	}
 
@@ -197,6 +198,7 @@ public class LevelSelectManager : MonoBehaviour {
 
 	void MiddleDisableLevelCardsPanel() {
 		uiManager.graphics["UserMadeLevelsPanel"].GetComponent<UIManager>().graphics["Container"].SetActive (false);
+		uiManager.graphics["CreatorButton"].SetActive(true);
 		LevelSelectManager.showingCustomLevelSelect = false;
 	}
 
