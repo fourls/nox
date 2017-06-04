@@ -397,7 +397,6 @@ public class LevelCreatorManager : MonoBehaviour {
 	}
 
 	public void UpdateTool(int no, GameObject icon) {
-		Debug.Log("UpdateTool called, no = " + no);
 		if (no <= 10) {
 			tool = no;
 		}
