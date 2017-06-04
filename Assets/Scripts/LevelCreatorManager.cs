@@ -239,21 +239,26 @@ public class LevelCreatorManager : MonoBehaviour {
 	}
 
 	void GiveAttributesToObject(LevelCreatorObject lco, int type, Vector2 pos) {
-		bool a = (ui.graphics["antiButton"].GetComponent<UIManager>().graphics["Button"].GetComponentInChildren<Text> ().text == "on") ? false : true;
+		bool a = false;
+		if(type == 7) {
+			a = (ui.graphics["antiButton"].GetComponent<UIManager>().graphics["Button"].GetComponentInChildren<Text> ().text == "on") ? false : true;
+		}
 		Direction d = Direction.Up;
+		if(type == 8) {
 		switch (ui.graphics["dirButton"].GetComponent<UIManager>().graphics["Button"].GetComponentInChildren<Text> ().text) {
-		case "up":
-			d = Direction.Up;
-			break;
-		case "down":
-			d = Direction.Down;
-			break;
-		case "left":
-			d = Direction.Left;
-			break;
-		case "right":
-			d = Direction.Right;
-			break;
+			case "up":
+				d = Direction.Up;
+				break;
+			case "down":
+				d = Direction.Down;
+				break;
+			case "left":
+				d = Direction.Left;
+				break;
+			case "right":
+				d = Direction.Right;
+				break;
+			}
 		}
 		int c = int.Parse (ui.graphics["connButton"].GetComponent<UIManager>().graphics["Button"].GetComponentInChildren<Text> ().text);
 
