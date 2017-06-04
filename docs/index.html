@@ -3,7 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Nox</title>
+    <title>Nox</title>
+    <style>
+    </style>
+    <style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+    }
+    body div#gameContainer {
+        width: 1280px;
+        height: 800px;
+        margin: 0;
+        padding: 0;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-top: -400px !important;
+        margin-left: -640px !important;
+    }
+    </style>
     <script src="Build/UnityLoader.js"></script>
     <script>
       var gameInstance = UnityLoader.instantiate("gameContainer", "Build/docs.json");
