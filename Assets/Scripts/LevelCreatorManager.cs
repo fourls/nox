@@ -417,7 +417,7 @@ public class LevelCreatorManager : MonoBehaviour {
 
 	void UpdateToolWindow() {
 		if (selected == null) {
-			ui.graphics["toolText"].GetComponent<Text>().text = "<color=grey>placing</color> " + toolNames [tool];
+			ui.graphics["toolText"].GetComponent<Text>().text = toolNames [tool];
 		} else {
 			ui.graphics["toolText"].GetComponent<Text>().text = "<color=grey>editing</color> " + toolNames [selected.type];
 		}
