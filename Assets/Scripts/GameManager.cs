@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour {
 	public Transform boardHolder;
 	public UIManager ui;
 
-	public LevelInformation level;
+	public LevelData level;
 	private bool levelWon = false;
 	public bool levelPlaying = false;
 
@@ -249,18 +249,18 @@ public class GameManager : MonoBehaviour {
 		Debug.LogWarning ("The application has quit.");
 	}
 
-	public static bool IsLevelAccessible(LevelInformation target) {
+	public static bool IsLevelAccessible(LevelData target) {
 		if (target.custom)
 			return true;
 		if (target.index < 1) {
 			return true;
 		} else {
-			LevelInformation l = LevelDetails.RetrieveLevelInformation (target.index - 1);
+			LevelData l = LevelDetails.RetrieveLevelInformation (target.index - 1);
 			return IsNextLevelAccessible (l);
 		}
 	}	// IsLevelAccessible() is not working - IsNextLevelAccessible() is.
 
-	public static bool IsNextLevelAccessible(LevelInformation level) {
+	public static bool IsNextLevelAccessible(LevelData level) {
 		if (level.custom)
 			return true;
 		if (FileLoader.savegame.visitedLevels.Contains(level)) {

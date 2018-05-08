@@ -10,7 +10,7 @@ public static class FileLoader {
 	public static GameSettings settings = new GameSettings();
 
 
-	public static void SaveLevelData (LevelInformation level) {
+	public static void SaveLevelData (LevelData level) {
 		if (level.custom) {
 			if (level.Complete ()) {
 				savegame.CustomLevelCompletedBelowPar (level);
@@ -83,9 +83,9 @@ public static class FileLoader {
 	}
 
 	public static void CheckSaveGameForUpdates () {
-		List<LevelInformation> levelInfo = LevelDetails.RetrieveAllLevels ();
+		List<LevelData> levelInfo = LevelDetails.RetrieveAllLevels ();
 
-		foreach (LevelInformation li in savegame.visitedLevels) {
+		foreach (LevelData li in savegame.visitedLevels) {
 			if (levelInfo.Contains (li)) {
 				li.index = levelInfo.IndexOf (li);
 			}
@@ -96,7 +96,7 @@ public static class FileLoader {
 		savegame = new GameData ();
 	}
 
-	public static void DeleteCustomLevel(LevelInformation li) {
+	public static void DeleteCustomLevel(LevelData li) {
 		if (File.Exists (Application.persistentDataPath + "/maps/map_" + li.name + ".txt"))
 			File.Delete (Application.persistentDataPath + "/maps/map_" + li.name + ".txt");
 
@@ -152,13 +152,13 @@ public static class FileLoader {
 
 [System.Serializable]
 public class GameData {
-	public List<LevelInformation> visitedLevels = new List<LevelInformation>();
-	public List<LevelInformation> playerVisitedLevels = new List<LevelInformation>();
+	public List<LevelData> visitedLevels = new List<LevelData>();
+	public List<LevelData> playerVisitedLevels = new List<LevelData>();
 
 	public GameData () {
 	}
 
-	public void LevelCompletedBelowPar (LevelInformation gv) {
+	public void LevelCompletedBelowPar (LevelData gv) {
 		LevelCompletedAbovePar (gv);
 		if (!visitedLevels.Contains (gv)) {
 			visitedLevels.Add (gv);
@@ -167,7 +167,7 @@ public class GameData {
 		}
 	}
 
-	public void LevelCompletedAbovePar (LevelInformation gv) {
+	public void LevelCompletedAbovePar (LevelData gv) {
 		if (!visitedLevels.Contains (gv)) {
 			visitedLevels.Add (gv);
 		} else if (visitedLevels [visitedLevels.IndexOf (gv)].moves > gv.moves || visitedLevels[visitedLevels.IndexOf(gv)].moves == -1) {
@@ -175,7 +175,7 @@ public class GameData {
 		}
 	}
 
-	public void CustomLevelCompletedBelowPar (LevelInformation gv) {
+	public void CustomLevelCompletedBelowPar (LevelData gv) {
 		CustomLevelCompletedAbovePar (gv);
 		if (!playerVisitedLevels.Contains (gv)) {
 			playerVisitedLevels.Add (gv);
@@ -184,7 +184,7 @@ public class GameData {
 		}
 	}
 
-	public void CustomLevelCompletedAbovePar (LevelInformation gv) {
+	public void CustomLevelCompletedAbovePar (LevelData gv) {
 		if (!visitedLevels.Contains (gv)) {
 			playerVisitedLevels.Add (gv);
 		} else if (playerVisitedLevels [playerVisitedLevels.IndexOf (gv)].moves > gv.moves || playerVisitedLevels[playerVisitedLevels.IndexOf(gv)].moves == -1) {

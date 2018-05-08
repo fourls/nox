@@ -22,7 +22,7 @@ public class LevelCreatorManager : MonoBehaviour {
 
 	public bool saved = true;
 
-	public static LevelInformation editing = null;
+	public static LevelData editing = null;
 
 	private int tool = 1;
 	private bool anti = false;
@@ -81,7 +81,7 @@ public class LevelCreatorManager : MonoBehaviour {
 		int x = 0;
 		int y = 0;
 
-		LevelInformation level = editing;
+		LevelData level = editing;
 		ui.graphics["titleField"].GetComponent<InputField>().text = level.name.ToString();
 		ui.graphics["parField"].GetComponent<InputField>().text = level.par.ToString();
 

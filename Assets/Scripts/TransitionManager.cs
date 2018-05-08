@@ -45,9 +45,11 @@ public class TransitionManager : MonoBehaviour {
 		alpha = a;
 	}
 
+	// accepts 3 parameterless functions - one is called before the transition, one is called in the middle, and one is called at the end
 	public IEnumerator TransitionScene(System.Action start, System.Action middle, System.Action end) {
 		if(start != null)
 			start ();
+		yield return null;
 
 		BeginFade (1);
 
@@ -67,7 +69,6 @@ public class TransitionManager : MonoBehaviour {
 
 		if(end != null)
 			end ();
-
 		yield return null;
 	}
 }
